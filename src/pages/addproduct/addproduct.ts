@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { HttpHeaders  } from '@angular/common/http';
 
 
 
@@ -24,7 +25,8 @@ import { File } from '@ionic-native/file';
   templateUrl: 'addproduct.html',
 })
 export class AddproductPage {
-
+  token : String;
+  // header : HttpHeaders;
   image = null;
   myDate: String = moment().format();
   loading : any;
@@ -42,10 +44,19 @@ export class AddproductPage {
   public onAddForm : FormGroup;
 
   constructor(private camera:Camera, private transfer: FileTransfer, private file: File,public storage: Storage,private loadingController: LoadingController, public categoryService: CategoryService, private _fb: FormBuilder, public nav: NavController, public navParams: NavParams, public forgotCtrl: AlertController, public menu: MenuController, public toastCtrl: ToastController,  public http: Http) {
-    this.id_user = this.navParams.get('id_user');
-    console.log(this.id_user);
-    const fileTransfer: FileTransferObject = this.transfer.create();
+    this.storage.get('token').then((val) => {
+      // let header = new HttpHeaders;
+      // header = header.append('Content-Type','application/json');
+      // header = header.append('Accept','application/json');
+      // header = header.append('Authorization','Bearer ' + val);
+            // this.header = header
+      this.token = val;
+      const fileTransfer: FileTransferObject = this.transfer.create();
+    },(err) =>{
+      this.presentToastrc('Error con autentificación')
+    })
   }
+
   fileTransfer: FileTransferObject = this.transfer.create();
   ngOnInit() {
     console.log(this.myDate);
@@ -76,16 +87,18 @@ export class AddproductPage {
   }
  
   postProduct() {
-    this.storage.get('token').then((val) => {
-    this.categoryService.addproduct(val, this.onAddForm.value)
-    .then((result) => {
-      this.presentToastrc('Producto publicado correctamente');
-      // this.nav.push(CategoryPage,{id_user: this.id_user});
-    }, (err) =>{
-          if (err.error.msg) this.presentToastrc(err.error.msg)
-          else this.presentToastrc('Fallo al conectarse con el servidor')
-         })
-    })
+    var options2: FileUploadOptions = {
+      fileKey: 'file',
+      chunkedMode: true,
+      mimeType: 'image/jpeg',
+      headers: {'Authorization': 'Bearer ' + this.token}, 
+      params: this.onAddForm.value
+      }
+      this.fileTransfer.upload(this.image,'http://192.168.100.19:3000/api/product',options2).then((data) =>{
+        this.presentToastrc('Producto Creado')
+        },(err) =>{
+            this.presentToastrc('Error al subir el Producto')
+          })
       }
 
       takePhoto(){
@@ -98,24 +111,10 @@ export class AddproductPage {
         }     
         this.camera.getPicture(options).then((imageData) => {
           this.image = 'data:image/jpeg;base64,' + imageData;
-         // imageData is either a base64 encoded string or a file URI
-         // If it's base64:
-         var options2: FileUploadOptions = {
-          fileKey: 'file',
-          chunkedMode: true,
-          mimeType: 'image/jpeg',
-          };
-                console.log(this.image);
-                this.fileTransfer.upload(this.image,'http://192.168.100.19:3000/api/product',options2).then((data) =>{
-                  console.log('exito');
-                  console.log(data);
-              },(err) =>{
-                console.log('error');
-                console.log(err);
-              })
+
         }, (err) => {
-         console.log(err);
-        });
+          this.presentToastrc('Error al tomar la fotografía')
+        })
       }
       
   presentToastrc(msg) {

@@ -1,0 +1,77 @@
+
+import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
+import { IonicStorageModule } from '@ionic/storage';
+import { MyApp } from './app.component';
+import { HomePage } from '../pages/home/home';
+import { WalkthroughPage } from '../pages/walkthrough/walkthrough';
+import { AuthPage } from '../pages/auth/auth';
+import { CategoryPage } from '../pages/category/category';
+import {CategoryService} from '../providers/category-service-mock';
+import { HttpClientModule } from '@angular/common/http';
+import { CartPage } from '../pages/cart/cart';
+import { AddproductPage} from '../pages/addproduct/addproduct';
+import { InformationPage} from '../pages/information/information';
+import { HttpModule} from '@angular/http';
+import { AuthProvider } from '../providers/auth/auth';
+import { Camera } from '@ionic-native/camera';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+
+class CameraMock extends Camera {
+  getPicture(options) {
+    return new Promise((resolve, reject) => {
+      resolve("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");
+    })
+  }
+}
+
+
+@NgModule({
+  declarations: [
+    MyApp,
+    HomePage,
+    WalkthroughPage,
+    HomePage,
+    AuthPage,
+    AddproductPage,
+    CategoryPage,
+    InformationPage,
+    CartPage,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    HttpModule,
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    WalkthroughPage,
+    HomePage,
+    AuthPage,
+    CategoryPage,
+    AddproductPage,
+    InformationPage,
+    CartPage,
+    //CategoryPage,
+    //ItemPage,
+    //CartPage
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    CategoryService,Camera, FileTransfer, File,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera, //comentar para buscador ejemplo
+    // { provide: Camera, useClass: CameraMock },
+    AuthProvider
+  ]
+})
+export class AppModule {}

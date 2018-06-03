@@ -1,0 +1,36 @@
+<!--
+  Generated template for the ListaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Lista de {{toTitleCase(this.name)}} </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor= "let entrega of entregaList">
+    <ion-card-header>
+      <p>{{toTitleCase(entrega.direction)}}</p>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{entrega.prod_name}}</h2>
+      <p>Entregar a : {{toTitleCase(entrega.name)}} {{toTitleCase(entrega.lastname)}}</p>
+      <p>Cantidad : {{entrega.quantity}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-fab bottom right>
+		<button ion-fab color="secondary" float-right>  <ion-icon name="list" color="light" style="font-size:30px"></ion-icon> </button>
+		<ion-fab-list side="top">
+			<button ion-fab (click)="openAddProductPage()"><ion-icon name="md-add"></ion-icon></button>
+      <button ion-fab (click)="openCartPage()"><ion-icon name="md-cart"></ion-icon></button>
+			<button ion-fab (click)="openInformationPage()"><ion-icon name="information"></ion-icon></button>
+		</ion-fab-list>
+	</ion-fab>

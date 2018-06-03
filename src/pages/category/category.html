@@ -1,0 +1,54 @@
+<ion-header>
+<!--
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Category</ion-title>
+  </ion-navbar> -->
+
+</ion-header>
+
+<ion-content class = "card-background-page">
+	  <ion-card tappable (click)="openCategoryPage('Comida')">
+			<img src="assets/imgs/comida.jpg"/>
+      <div class="card-title">Comida</div>
+      <p class ="card-subtitle">Productos Disponibles: {{numCat0}}</p>
+    </ion-card>
+    <ion-card tappable (click)="openCategoryPage('Ocio')">
+			<img src="assets/imgs/ocio.jpg"/>
+      <div class="card-title">Ocio</div>
+      <p class ="card-subtitle">Productos Disponibles: {{numCat1}}</p>
+    </ion-card>
+    <ion-card tappable (click)="openCategoryPage('Tecnologia')">
+			<img src="assets/imgs/tecnologia.jpg"/>
+      <div class="card-title">Tecnologia</div>
+      <p class ="card-subtitle">Productos Disponibles: {{numCat2}}</p>
+    </ion-card>
+    <ion-card tappable (click)="openCategoryPage('Tutorias')">
+			<img src="assets/imgs/tutorias.jpg"/>
+      <div class="card-title">Tutorias</div>
+      <p class ="card-subtitle">Productos Disponibles: {{numCat3}}</p>
+    </ion-card>
+    <ion-card tappable (click)="openCategoryPage('Todos')">
+			<img src="assets/imgs/todos.jpg"/>
+      <div class="card-title">Todos</div>
+      <p class ="card-subtitle">Productos Disponibles: {{numCat4}}</p>
+    </ion-card>
+    <ion-card tappable (click)="openCategoryPage('Vendedor')">
+			<img src="assets/imgs/seller.jpg"/>
+      <div class="card-title">Productos en venta</div>
+      <p class ="card-subtitle">Ver tus productos</p>
+	  </ion-card>
+</ion-content>
+
+
+
+	<ion-fab bottom right>
+		<button ion-fab color="secondary" float-right>  <ion-icon name="list" color="light" style="font-size:30px"></ion-icon> </button>
+		<ion-fab-list side="top">
+			<button ion-fab (click)="openAddProductPage()"><ion-icon name="md-add"></ion-icon></button>
+      <button ion-fab (click)="openCartPage()"><ion-icon name="md-cart"></ion-icon></button>
+			<button ion-fab (click)="openInformationPage()"><ion-icon name="information"></ion-icon></button>
+		</ion-fab-list>
+	</ion-fab>

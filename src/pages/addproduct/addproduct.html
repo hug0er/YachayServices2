@@ -1,0 +1,99 @@
+<!-- -->
+<ion-header>
+
+    <ion-navbar color="secondary">
+        <ion-title>Añadir Producto</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-content padding class="primary-bg">
+
+    <form [formGroup]="onAddForm">
+        <ion-item>
+            <ion-label floating class="text-white">
+                <h2 class="text-white"> Nombre del Producto</h2>
+            </ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('name').touched && onAddForm.get('name').hasError('required')">El campo es requerido</p>
+
+
+        <ion-item>
+            <ion-label floating class="text-white">
+                <h2 class="text-white"> Descripcion del Producto</h2>
+            </ion-label>
+            <ion-textarea type="text" formControlName="description"></ion-textarea>
+        </ion-item>
+        <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('description').touched && onAddForm.get('description').hasError('required')">El campo es requerido</p>
+
+        <ion-item>
+            <ion-label stack color="dark">Categoría</ion-label>
+            <ion-select formControlName="category">
+                <ion-option value='Comida'>Comida</ion-option>
+                <ion-option value='Ocio'>Ocio</ion-option>
+                <ion-option value='Tecnología'>Tecnología</ion-option>
+                <ion-option value='Tutorías'>Tutorías</ion-option>
+            </ion-select>
+        </ion-item>
+        <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('category').touched && onAddForm.get('category').hasError('required')">El campo es requerido</p>
+
+        <ion-row>
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label color="dark" stack>
+                        <ion-icon name="md-calendar" item-start> Fecha:</ion-icon>
+                    </ion-label>
+                    <ion-datetime min={{this.myDate}} max="2120-10-31" placeholder="Entrega" displayFormat="MM/DD/YYYY H:m" formControlName="delivery_date"></ion-datetime>
+                </ion-item>
+                <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('delivery_date').touched && onAddForm.get('delivery_date').hasError('required')">El campo es requerido</p>
+            </ion-col>
+
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label stack color="dark">
+                        <ion-icon name="md-calendar" item-start> Fecha:</ion-icon>
+                    </ion-label>
+                    <ion-datetime min={{this.myDate}} max="2120-10-31" placeholder="Inicio de Venta" displayFormat="MM/DD/YYYY" formControlName="start_date"></ion-datetime>
+                </ion-item>
+                <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('start_date').touched && onAddForm.get('start_date').hasError('required')">El campo es requerido</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="ios-cash-outline" class="text-white"></ion-icon>
+                    </ion-label>
+                    <ion-input type="number" formControlName="price" placeholder="Precio"></ion-input>
+                </ion-item>
+                <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('price').touched && onAddForm.get('price').hasError('required')">El campo es requerido</p>
+            </ion-col>
+
+            <ion-col width-50>
+                <ion-item>
+                    <ion-label>
+                        <ion-icon name="ios-albums-outline" class="text-white"></ion-icon>
+                    </ion-label>
+                    <ion-input type="number" placeholder="Stock" formControlName="stock"></ion-input>
+                </ion-item>
+                <p ion-text color="danger" class="text-12x has-error" *ngIf="onAddForm.get('stock').touched && onAddForm.get('stock').hasError('required')">El campo es requerido</p>
+            </ion-col>
+        </ion-row>
+
+        <!--<button ion button (click)="takePhoto()">Take Photo</button>
+    <p align="center"><img src="{{ myphoto }}"></p>-->
+
+        <div text-center>
+            <button style="margin-top:10px" ion-button round color="secondary" type="submit" (click)="takePhoto()">Foto del Producto</button>
+        </div>
+
+        <!--<p align="center"><img src="{{ myphoto }}"></p>-->
+        <p> <img [src]="image" *ngIf="image" /> </p>
+
+        <div text-center>
+            <button style="margin-top:10px" ion-button round color="secondary" type="submit" (click)="postProduct()" [disabled]="!onAddForm.valid">Empezar a vender</button>
+        </div>
+    </form>
+
+</ion-content>

@@ -1,0 +1,40 @@
+page-cart {
+    .primary-bg{
+        background: url("../assets/imgs/fondo_presen2.png") no-repeat center center fixed;
+        background-size: cover;
+     }
+    .text-white{
+        color: #ffffff;
+      }
+    .back-button {
+        color: #ffffff;
+    }
+    .title-text-color{
+        color: #ffffff;
+    }
+    .toolbar-title {
+        color: white;
+    }
+    .button_s{
+        width:47%;
+        height:50px;
+        .icon:before{
+            margin: 0 10px;
+          }}
+    .btn {
+        display:block;
+            height: 30px;
+            width: 10px;
+            border-radius: 100%;
+            border: px solid red;
+            position: absolute;
+            right:    10px;
+    }
+    .showAlert{
+        color : red;
+        .title{
+            font-size: 2px;
+        }
+    }
+    
+}

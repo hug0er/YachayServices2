@@ -1,0 +1,38 @@
+<ion-content class="primary-bg">
+	<ion-grid no-padding fixed>
+		<ion-row no-padding>
+			<ion-col>
+
+			  <ion-slides pager="true" dir="{{dir}}">
+			    <ion-slide *ngFor="let slide of slideList">
+			      <ion-toolbar fixed>
+			        <ion-buttons end>
+			          <button ion-button color="light" (click)="onLastSlide()">Skip</button>
+			        </ion-buttons>
+			      </ion-toolbar>
+			      <img [src]= "slide.image" class="slide-image">
+			      <h2 class="slide-title text-white" [innerHTML]="slide.title"></h2>
+			      <p [innerHTML]="slide.description" class="text-gray"></p>
+
+						<footer padding>
+				      <button ion-button round block color="secondary" (click)="onSlideNext()" class="slide-button" >
+				      	Siguiente
+				      	<ion-icon name="arrow-round-forward" color="light"></ion-icon>
+				    	</button>
+			    	</footer>
+			    </ion-slide>
+			    <ion-slide>
+			      <img src="assets/imgs/pizza.png" class="slide-image2" margin-top>
+						<h2 class="slide-title text-white">Ya tienes todo lo que nesecitas \n Disfruta!</h2>
+			      <footer padding>
+			        <button left ion-button block round color="dark" (click)="openHomePage()" >
+			          Empecemos
+			        </button>
+			      </footer>
+			    </ion-slide>
+			  </ion-slides>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
+<!-- falta ver si footer esta bien usado -->

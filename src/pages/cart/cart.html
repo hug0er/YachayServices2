@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ComidaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="text-white" no-shadow no-border align-title="center">
+
+    <ion-navbar transparent no-border align-title="center">
+        <ion-title align-title="center">Carrito de compras</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="primary-bg">
+    <ion-card *ngFor="let carrito of this.carritoList; let i = index">
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <h2>{{this.toTitleCase(carrito.id_product.name)}}</h2>
+                    <ion-avatar item-start>
+                        <img src="assets/imgs/todos.jpg">
+                    </ion-avatar>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <button class="btn" color="danger" ion-button (click)="delete(i)"> <ion-icon name="close"></ion-icon> </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-left clear small>
+                <ion-icon name="cash"></ion-icon>
+                <div>$ {{carrito.id_product.price}}</div>
+              </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button small (click)="add(i)"> <ion-icon name="add"></ion-icon> </button>
+                <button ion-button small> {{this.carritoList[i].quantity}} </button>
+                <button ion-button small (click)="remove(i)"> <ion-icon name="remove"></ion-icon> </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col>
+                <button ion-button icon-left clear small>
+          <ion-icon name="calendar"></ion-icon>
+          <div>Entrega: </div>
+        </button>
+            </ion-col>
+            <ion-col>
+                <button ion-button clear small>
+          <div>{{this.spliceDeliveryDate(carrito.id_product.delivery_date)}}</div>
+        </button>
+            </ion-col>
+        </ion-row>
+
+    </ion-card>
+    <div text-center>
+        <button class="button_s" ion-button color="secondary" (click)="save()">Guardar <ion-icon name="bookmark" color="light" style="font-size:20px"></ion-icon> </button>
+        <button class="button_s" ion-button color="secondary" (click)="presentPrompt()">Confirmar <ion-icon name="checkmark" color="light" style="font-size:24px"></ion-icon> </button>
+    </div>
+</ion-content>
